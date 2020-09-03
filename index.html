@@ -1,0 +1,149 @@
+<!doctype html>
+
+<html lang="en">
+
+    <head>
+
+        <title>PID Generator</title>
+
+        <meta charset="UTF-8">
+
+        <link href="https://fonts.googleapis.com/css?family=PT+Serif|Roboto" rel="stylesheet">
+
+        <!-- Note that this is a development copy of Vue. -->
+
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+        <style>
+
+            /* Emulating styles on rebgv.ca */
+
+            h1 {
+
+				color: #333;
+				font-family: 'PT Serif', serif;
+				font-weight: 400;
+            }
+            
+            p,ul,select,button {
+
+				color: #444;
+				font-family: 'Roboto', sans-serif;
+				line-height: 1.5;
+				font-size: 16px;
+            }
+            
+            p {
+
+				margin-top: 16px;
+				margin-bottom: 16px;
+            }
+            
+            li {
+
+				padding-top: 4px;
+				padding-bottom: 4px;
+            }
+            
+            /* All other styling */
+
+            .alert {
+
+				color: red;
+				font-weight: bold;
+            }
+            
+            #requestPids select {
+
+				display: block;
+				width: 75px;
+			}
+
+			#requestPids button {
+
+				margin-top: 20px;
+			}
+
+        </style>
+
+    </head>
+
+    <body>
+
+        <div id="app">
+
+            <h1>{{ title }}</h1>
+
+            <p class="alert">This is a test page &mdash; please do not use these PIDs.</p>
+
+            <p>Each listing needs its own unique PID number, which means sometimes you'll need to generate a temporary PID for your listing. Here are a few examples of when this might be necessary:</p>
+
+            <ul>
+
+                <li>You're listing a pre-sale and the individual units don't yet have their own PID numbers</li>
+                <li>You're listing a property across more than one category (e.g. detached and multi-family)</li>
+                <li>The property is a business without an assigned PID number</li>
+                <li>You're listing a mobile home</li>
+
+            </ul>
+
+            <section id="requestPids">
+
+                <p>How many PIDs do you need?</p>
+
+                <select>
+
+                    <option v-for="pid in pidOptions" :value="pid">{{ pid }}</option>
+
+                </select>
+
+                <button v-on:click="requestPids">Generate</button>
+
+            </section>
+
+            <section id="pid-results">
+
+                <p>You requested <span class="numberRequested"></span> PID<span class="grammar">s</span>:</p>
+
+                <p id="generated-pids"></p>
+
+                <button id="copy" data-clipboard-target="#generated-pids">Copy PID<span class="grammar">s</span></button>
+                <button id="start-over">Start over</button>
+
+            </section>
+
+        </div>
+
+        <script type="text/javascript">
+
+            var app = new Vue({
+
+                el: '#app',
+                data: {
+                    title: 'Generate a PID',
+                    pidOptions: [1,2,3,4,5,6,7,8,9,10]
+                },
+                methods: {
+                    requestPids: function() {
+
+                        var http = new XMLHttpRequest();
+                        var url = 'http://localhost:7071/api/PIDGenerator';
+
+                        http.onreadystatechange = function() {
+                            if (this.readyState == 4 && this.status == 200) {
+                                console.log(http.responseText);
+                            }
+                        }
+
+                        http.open('GET', url);
+                        http.send();
+                    }
+                }
+            });
+
+        </script>
+        
+    </body>
+
+</html>
+
