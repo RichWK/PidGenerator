@@ -125,7 +125,7 @@ THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR I
 
             <p>How many PIDs do you need?</p>
 
-            <select id="pidSelectList">
+            <select id="numberOfPids">
 
                 <option v-for="pid in pidOptions" :selected="pid == selectedValue">{{ pid }}</option>
 
@@ -199,7 +199,7 @@ THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR I
 
                 updateSelectedValue: function() {
 
-                    var select = document.getElementById("pidSelectList");
+                    var select = document.getElementById("numberOfPids");
                     app.selectedValue = select.options[select.selectedIndex].text;
                 }
             }
