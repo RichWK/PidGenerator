@@ -126,9 +126,9 @@ THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR I
 
             <p>How many PIDs do you need?</p>
 
-            <select id="numberOfPids">
+            <select id="numberOfPids" v-model.number="selectedValue">
 
-                <option v-for="pid in pidOptions" :selected="pid == selectedValue">{{ pid }}</option>
+                <option v-for="pid in pidOptions">{{ pid }}</option>
 
             </select>
 
@@ -173,7 +173,6 @@ THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR I
                 requestPids: function() {
 
                     app.toggleRequestArea();
-                    app.updateSelectedValue();
 
                     var http = new XMLHttpRequest();
                     var url = 'http://localhost:7071/api/PIDGenerator';
@@ -198,12 +197,6 @@ THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR I
                 toggleRequestArea: function() {
 
                     app.showRequestArea = !app.showRequestArea;
-                },
-
-                updateSelectedValue: function() {
-
-                    var select = document.getElementById("numberOfPids");
-                    app.selectedValue = select.options[select.selectedIndex].text;
                 }
             }
         });
