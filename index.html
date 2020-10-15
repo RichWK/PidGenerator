@@ -172,7 +172,7 @@ THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR I
             methods: {
                 requestPids: function() {
 
-                    app.showRequestArea = !app.showRequestArea;
+                    app.toggleRequestArea();
                     app.updateSelectedValue();
 
                     var http = new XMLHttpRequest();
@@ -191,8 +191,13 @@ THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR I
 
                 startOver: function() {
 
-                    app.showRequestArea = !app.showRequestArea;
+                    app.toggleRequestArea();
                     app.pids = [];
+                },
+
+                toggleRequestArea: function() {
+
+                    app.showRequestArea = !app.showRequestArea;
                 },
 
                 updateSelectedValue: function() {
