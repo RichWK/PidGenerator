@@ -172,8 +172,8 @@ THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR I
             methods: {
                 requestPids: function() {
 
-                    app.updateSelectedValue();
                     app.showRequestArea = !app.showRequestArea;
+                    app.updateSelectedValue();
 
                     var http = new XMLHttpRequest();
                     var url = 'http://localhost:7071/api/PIDGenerator';
