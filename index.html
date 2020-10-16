@@ -175,7 +175,7 @@ THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR I
                     app.toggleRequestArea();
 
                     var http = new XMLHttpRequest();
-                    var url = 'http://localhost:7071/api/PIDGenerator';
+                    var url = 'https://pidgenerator.azurewebsites.net/api/PIDGenerator';
 
                     http.onreadystatechange = function() {
                         if (this.readyState == 4 && this.status == 200) {
