@@ -142,7 +142,8 @@ THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR I
 
             <p id="generatedPids">
 
-                <template v-if="pids.length === 0">Loading...</template>
+                <template v-if="errorOccurred === false && pids.length === 0">Loading...</template>
+                <template v-if="errorOccurred === true">Sorry, something went wrong &mdash; please try again. If you keep seeing this message, please let us know by emailing helpdesk@rebgv.org.</template>
                 <template v-for="pid in pids">{{ pid }}<br /></template>
 
             </p>
@@ -164,8 +165,9 @@ THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR I
 
             el: '#app',
             data: {
+                errorOccurred: false,
                 pids: [],
-                pidOptions: [1,2,3,4,5,6,7,8,9,10],
+                pidOptions: [ 1,2,3,4,5,6,7,8,9,10 ],
                 selectedValue: 1,
                 showRequestArea: true
             },
@@ -178,14 +180,21 @@ THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR I
                     var url = 'https://pidgenerator.azurewebsites.net/api/PIDGenerator';
 
                     http.onreadystatechange = function() {
-                        if (this.readyState == 4 && this.status == 200) {
 
-                            app.pids = JSON.parse(http.responseText);
+                        if ( this.readyState == 4 ) {
+                            if ( this.status == 200 ) {
+
+                                app.pids = JSON.parse( http.responseText );
+                            }
+                            else if ( this.status == 500 ) {
+
+                                app.errorOccurred = true;
+                            }
                         }
                     }
 
-                    http.open('POST', url);
-                    http.send('{ "quantity": ' + app.selectedValue + ' }');
+                    http.open( 'POST', url );
+                    http.send( '{ "quantity": ' + app.selectedValue + ' }' );
                 },
 
                 startOver: function() {
