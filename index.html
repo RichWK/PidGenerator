@@ -186,7 +186,7 @@ THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR I
 
                                 app.pids = JSON.parse( http.responseText );
                             }
-                            else if ( this.status == 500 ) {
+                            else if ( this.status >= 500 ) {
 
                                 app.errorOccurred = true;
                             }
@@ -200,6 +200,7 @@ THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR I
                 startOver: function() {
 
                     app.toggleRequestArea();
+                    app.errorOccurred = false;
                     app.pids = [];
                 },
 
