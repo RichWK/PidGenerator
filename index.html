@@ -142,8 +142,8 @@ THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR I
 
             <p id="generatedPids">
 
-                <template v-if="errorOccurred === false && pids.length === 0">Loading, this may take a few seconds...</template>
-                <template v-if="errorOccurred === true">Sorry, something went wrong &mdash; please try again. If you keep seeing this message, please let us know by emailing helpdesk@rebgv.org.</template>
+                <template v-if="errorOccurred === false && pids.length === 0">Loading... (this may take a few seconds)</template>
+                <template v-if="errorOccurred === true">Sorry, something went wrong &mdash; please try again. If you keep seeing this message, please let us know by emailing support@rebgv.org.</template>
                 <template v-for="pid in pids">{{ pid }}<br /></template>
 
             </p>
